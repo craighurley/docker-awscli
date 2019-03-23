@@ -4,6 +4,8 @@
 FROM        python:3.6-alpine3.9
 MAINTAINER  Craig Hurley
 
+ENV         AWS_PROFILE=default
+
 WORKDIR     /workdir
 
 RUN         apk --no-cache add \
