@@ -12,7 +12,10 @@ COPY        docker-entrypoint.sh /usr/local/bin/
 
 RUN         chmod +x /usr/local/bin/docker-entrypoint.sh \
             && apk --no-cache add \
+                ca-certificates \
                 groff \
+                less \
+            && update-ca-certificates
             && pip3 install --no-cache-dir \
                 awscli==1.16.128
 
