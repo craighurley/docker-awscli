@@ -7,13 +7,17 @@ Run awscli in a container.
 Run awscli in a container:
 
 ```sh
-docker run --rm -it -v $HOME/.aws:/root/.aws -v $(pwd):/workdir -e AWS_PROFILE=$AWS_PROFILE craighurley/docker-awscli
+# AWS_PROFILE is set to default within the container
+docker run --rm -it -v $HOME/.aws:/root/.aws -v $(pwd):/workdir craighurley/docker-awscli
+
+# AWS_PROFILE is set to match the hosts value
+docker run --rm -it -v $HOME/.aws:/root/.aws -v $(pwd):/workdir -e AWS_PROFILE craighurley/docker-awscli
 ```
 
 Optional: create an alias for the container:
 
 ```sh
-alias aws='docker run --rm -it -v $HOME/.aws:/root/.aws -v $(pwd):/workdir -e AWS_PROFILE=$AWS_PROFILE craighurley/docker-awscli'
+alias aws='docker run --rm -it -v $HOME/.aws:/root/.aws -v $(pwd):/workdir -e AWS_PROFILE craighurley/docker-awscli'
 ```
 
 ## Links

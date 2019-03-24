@@ -1,17 +1,19 @@
 # Run awscli in a container
-# docker run --rm -it -v $HOME/.aws:/root/.aws -v $(pwd):/workdir -e AWS_PROFILE=$AWS_PROFILE craighurley/docker-awscli
+# docker run --rm -it -v $HOME/.aws:/root/.aws -v $(pwd):/workdir -e AWS_PROFILE craighurley/docker-awscli
 
 FROM        python:3.6-alpine3.9
 MAINTAINER  Craig Hurley
 
-ENV         AWS_PROFILE=default
-
 WORKDIR     /workdir
 
-RUN         apk --no-cache add \
-                groff
+ENV         AWS_PROFILE=default
 
-RUN         pip3 install --no-cache-dir \
+COPY        docker-entrypoint.sh /usr/local/bin/
+
+RUN         chmod +x /usr/local/bin/docker-entrypoint.sh \
+            && apk --no-cache add \
+                groff \
+            && pip3 install --no-cache-dir \
                 awscli==1.16.128
 
-ENTRYPOINT  [ "aws" ]
+ENTRYPOINT  [ "docker-entrypoint.sh" ]
